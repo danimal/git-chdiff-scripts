@@ -3,7 +3,7 @@
 """
 git-chdiff
 
-Created by Dan Weeks on 2008-02-20.
+Created by Dan Weeks (dan [AT] danimal [DOT] org) on 2008-02-20.
 Released to the Public Domain.
 """
 
