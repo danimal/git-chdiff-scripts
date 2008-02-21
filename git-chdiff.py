@@ -22,6 +22,8 @@ display diffs of git files using the chdiff utility
   -r, --revision    the revision of the file to use 
                        defaults to 'HEAD~1', the previous commit
   -w, --wait        cause chdiff to wait between files
+  -v, --verbose     print more messages during operation
+  --clean           clean any temp files that might have been left around
 '''
 
 tempFileSuffix = '.temp'
