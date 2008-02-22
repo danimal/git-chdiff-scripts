@@ -47,9 +47,7 @@ def cleanTempFiles(verbose=False):
             print 'scanning for git-chdiff temp files to clean'
         myUid = pwd.getpwnam(getpass.getuser())[2]
         fileList = os.listdir(tempDirectory)
-        print fileList
         for fileName in fileList:
-            print fileName
             nFile = os.path.join(tempDirectory, fileName)
             # skip directories
             if not os.path.isfile(nFile):
@@ -152,9 +150,11 @@ def main(argv=None):
             for line in lines:
                 line = line.rstrip()
                 if line.endswith(nFile):
-                    gitFile = line.split(' ')[-1]
+                    # split on the three spaces between 
+                    #'modified:' and the file name
+                    gitFile = line.split('   ')[-1]
                     if verbose:
-                        print '    full path: %s' % gitFile
+                        print '    git path: %s' % gitFile
                     break
         except OSError, e:
             print >>sys.stderr, 'Execution failed:', e
