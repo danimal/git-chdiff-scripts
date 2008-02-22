@@ -121,6 +121,7 @@ def main(argv=None):
     fileNames = argv[1:]
     for fileName in fileNames:
         nFile = os.path.normpath(fileName)
+        gitFile = nFile
         if verbose:
             print '-> working on %s' % nFile
         if not os.path.isfile(nFile):
@@ -135,10 +136,10 @@ def main(argv=None):
                                  stdout=subprocess.PIPE, 
                                  stderr=subprocess.STDOUT)
             p.wait()
+            lines = p.stdout.readlines()
             if p.returncode > 0:
                 # the file is probably not in the git repo
                 # or is not changed, let's find out
-                lines = p.stdout.readlines()
                 if lines[0].startswith('error:'):
                     print '%s not in git repository.....skipping' % nFile
                     continue
@@ -147,13 +148,21 @@ def main(argv=None):
                     if verbose:
                         print '    %s unchanged.....skipping' % nFile
                     continue
+            # our file is there, look for the full path to it
+            for line in lines:
+                line = line.rstrip()
+                if line.endswith(nFile):
+                    gitFile = line.split(' ')[-1]
+                    if verbose:
+                        print '    full path: %s' % gitFile
+                    break
         except OSError, e:
             print >>sys.stderr, 'Execution failed:', e
         # shadow the requested version of the file to a temp file
         # so we have something to diff against
         tFile = None
         try:
-            p = subprocess.Popen('git show %s:%s' % (revision,nFile), 
+            p = subprocess.Popen('git show %s:%s' % (revision,gitFile), 
                                  env=os.environ,
                                  shell=True,
                                  stdout=subprocess.PIPE, 
