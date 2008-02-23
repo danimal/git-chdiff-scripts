@@ -76,7 +76,7 @@ def main(argv=None):
     
     # set up the defaults
     doClean = False
-    revision = 'HEAD~1'
+    revision = 'HEAD~0' # get the previous commit
     wait = False
     verbose = False
     
