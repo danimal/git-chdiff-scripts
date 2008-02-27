@@ -106,7 +106,7 @@ def main(argv=None):
             if option in ('-w', '--wait'):
                 wait = True
                 del(argv[argv.index(option)])
-            if option in ('-v', '--version'):
+            if option in ('-v', '--verbose'):
                 verbose = True
                 del(argv[argv.index(option)])
     except Usage, err:
