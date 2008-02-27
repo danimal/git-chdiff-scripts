@@ -1,2 +1,2 @@
 #!/bin/sh
-[ $# -eq 7 ] && /usr/bin/env chdiff "$2" "$5"
+[ $# -eq 7 ] && /usr/bin/env chdiff --wait "$2" "$5"
